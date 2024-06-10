@@ -5,9 +5,10 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -16,6 +17,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import ReactMoE from 'react-native-moengage';
 
 import {
   Colors,
@@ -62,37 +64,31 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  useEffect(() => {
+    ReactMoE.initialize("<APP_ID>");
+}, []);
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+<SafeAreaView style={[backgroundStyle, { flex: 1 }]}>
+  <StatusBar
+    barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+    backgroundColor={backgroundStyle.backgroundColor}
+  />
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 16 }}>
+    <View style={{ marginBottom: 20 }}>
+      <Button title="Button 1" onPress={() => console.log('Button 1 pressed')} />
+    </View>
+    <View style={{ marginBottom: 20 }}>
+      <Button title="Button 2" onPress={() => console.log('Button 2 pressed')} />
+    </View>
+    <View style={{ marginBottom: 20 }}>
+      <Button title="Button 3" onPress={() => console.log('Button 3 pressed')} />
+    </View>
+    <View style={{ marginBottom: 20 }}>
+      <Button title="Button 4" onPress={() => console.log('Button 4 pressed')} />
+    </View>
+  </View>
+</SafeAreaView>
   );
 }
 

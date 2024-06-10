@@ -1,6 +1,8 @@
 package com.slingtv72;
 
 import android.app.Application;
+import android.util.Log;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -9,6 +11,11 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 import java.util.List;
+import com.moengage.core.DataCenter;
+import com.moengage.core.LogLevel;
+import com.moengage.core.MoEngage;
+import com.moengage.core.config.LogConfig;
+import com.moengage.react.MoEInitializer;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -58,5 +65,8 @@ public class MainApplication extends Application implements ReactApplication {
       DefaultNewArchitectureEntryPoint.load();
     }
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    MoEngage.Builder moEngage = new MoEngage.Builder(this, "<APP_ID>", DataCenter.DATA_CENTER_1);
+    moEngage.configureLogs(new LogConfig(LogLevel.VERBOSE, false));
+    MoEInitializer.INSTANCE.initializeDefaultInstance(getApplicationContext(), moEngage);
   }
 }
